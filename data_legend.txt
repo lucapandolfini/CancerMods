@@ -1,0 +1,19 @@
+Acronim	Explanation
+TCGA_project_ID	Identifier of the TCGA cancer type
+N	Total number of cancer samples analyzed
+Expr/ExprCancer	Median expression in all cancer samples
+log2Delta	Log2 ratio of the median expression values
+pvalDelta:	P-value of the Wilcoxon test comparing the median expression in each cancer over the global median expression
+pval (other)	P-value of the Wilcoxon test comparing the gene expression values in the two groups
+pval (cancer)	P-value of the median gene expression compared to a Gamma distribution fit of the medians of all cancer types.
+Nsurv	Number of patient in either group compared for the survival analysis (corresponding to the top and bottom quartiles of gene expression)
+cox_coef	Coefficient of the Cox regression (proportional hazards model for survival-time); a positive coefficient indicates a worse prognosis and a negative coefficient indicates a protective effect of the gene
+pvalSurv	Statistical significance of the Cox regression coefficient
+nNorm	Number of healthy samples analyzed
+nCancer	Number of cancer samples analyzed
+nPrim	Number of primary samples analyzed
+nMetas	Number of cancer metastasis samples analyzed
+ExprNorm	Median gene expression in healthy samples
+ExprPrim	Median gene expression in primary cancer samples
+ExprMetas	Median gene expression in cancer metastasis samples
+

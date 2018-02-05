@@ -1,0 +1,162 @@
+---
+output: html_document
+params:
+  gene: nogene
+  gene_official: nogene
+  gene_descr: bla bla bla description
+title: "`r params$gene_official`"
+author: "`r params$gene_descr`"
+---
+
+## Boxplots of gene expression {.tabset}
+
+### Cancer
+
+* In <font color="red">red</font> are indicated cancer types in which high gene expression significantly correlates with <font color="red">worse prognosis</font>.
+* In <font color="dodgerblue">blue</font> are indicated cancer types in which high gene expression significantly correlates with <font color="dodgerblue">better prognosis</font>.
+* Black and gray dashed lines show the mean and 95% CI of the median gene expression across different cancer types, respectively.
+
+<br>
+```{r fig, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5, fig.align = "center"}
+gene=params$gene
+gene_official=params$gene_official
+projecttab <- plotExprCancer_surv(gene, 0.25, gene_official)
+gene_info <- t(as.data.frame(c(gene, projecttab$glob_medmean[1], projecttab$glob_medsd[1])))
+rownames(gene_info)<-gene_official
+colnames(gene_info)<-c("ENSEMBL_ID","MedianExpr","SD")
+projecttab$glob_medmean <-NULL
+projecttab$glob_medsd <-NULL
+projecttab$col <- NULL
+colnames(projecttab)<-c("TCGA_project_ID", "N", "Expr", "log2Delta", "pvalDelta", "", "Nsurv","cox_coef","pvalSurv","")
+```
+
+### Cancer/Normal
+
+* In <font color="#00bfc4">cyan</font> are indicated cancer types in which gene expression is significantly <font color="#00bfc4">higher</font> than in healthy tissues.
+* In <font color="#f8766d">pink</font> are indicated cancer types in which gene expression is significantly <font color="#f8766d">lower</font> than in healthy tissues.
+
+<br>
+```{r norm, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5, fig.align = "center"}
+table_normal<-plotExprCancerVsNormal_stats(gene, gene_official)
+```
+
+### Primary/Metastasis 
+
+* In <font color="#00bfc4">cyan</font> are indicated cancer types in which gene expression is significantly <font color="#00bfc4">higher</font> in metastasis than in primary tumour.
+* In <font color="#f8766d">pink</font> are indicated cancer types in which gene expression is significantly <font color="#f8766d">lower</font> in metastasis than in primary tumour.
+
+<br>
+```{r met, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5, fig.align = "center"}
+table_metastasis<-plotExprCancerVsMetastasis_stats(gene, gene_official)
+```
+
+## Data & Stats {.tabset}
+
+### Overview
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+gene_info <-as.data.frame(gene_info)
+gene_info <- mutate(gene_info, ENSEMBL_ID=paste0("<a target='_blank' href='https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=",ENSEMBL_ID,"'>",ENSEMBL_ID,"</a>"))
+DT::datatable(gene_info, class='compact', escape=FALSE, options = list(pageLength =100, dom = 't', ordering=F, columnDefs = list(list(className = 'dt-left', targets = 1:3)))) %>% formatRound(columns=c("MedianExpr", "SD"), digits=3)
+```
+<br><br>
+Cancer types in which the gene is expressed significantly above the mean:
+```{r, echo=FALSE, warning=FALSE}
+res<-subset(projecttab, log2Delta > 0 & pvalDelta < 0.05)
+if(nrow(res)){cat(rownames(res))}else{cat("None")}
+```
+Cancer types in which the gene is expressed significantly below the mean:
+```{r, echo=FALSE, warning=FALSE}
+res<-subset(projecttab, log2Delta < 0 & pvalDelta < 0.05)
+if(nrow(res)){cat(rownames(res))}else{cat("None")}
+```
+<br>
+Cancer types in which high expression of the gene is significantly prognostic of good outcome:
+```{r, echo=FALSE, warning=FALSE}
+res<-subset(projecttab, cox_coef > 0 & pvalSurv < 0.05)
+if(nrow(res)){cat(rownames(res))}else{cat("None")}
+```
+Cancer types in which high expression of the gene is significantly prognostic of poor outcome:
+```{r, echo=FALSE, warning=FALSE}
+res<-subset(projecttab, cox_coef < 0 & pvalSurv < 0.05)
+if(nrow(res)){cat(rownames(res))}else{cat("None")}
+```
+
+### Survival Curves
+<br>Kaplan-Meier survival plots:
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+dnames<-names(curated_mRNA_dataset)
+dnames<-dnames[(!dnames %in% c("TARGET-NBL"))]	# !! This dataset has no days_to_follow_up information!! 
+
+for (pj in dnames){
+	filename=paste0(gene, "_", pj)
+	pdf(file=paste0(filename, ".pdf"), width=5, height=5)
+	suppressWarnings(this_line<-rbind(geneSurvival(pj, gene, 0.25, stoptime_analysis=NULL, stoptime_plot=NULL)))
+	dev.off()
+	system(paste0("convert -density 150 ", filename,".pdf[1] -quality 90 ", filename,".png"))
+	system(paste0("rm ",filename, ".pdf"))
+}
+
+imgs<- list.files(".", pattern = gene)
+imgs<-imgs[grep("png", imgs)]
+labs<-str_replace_all(imgs, c("\\.png" = ""))
+labs<-str_replace_all(labs, gene, "")
+labs<-str_replace_all(labs, "_", "")
+names(imgs)<-labs
+bsselect(imgs, type = "img", live_search = TRUE, frame_width=400, show_tick = TRUE)
+```
+
+
+### Cancer
+<br>Gene Expression and Cancer Survival:
+```{r fig2, echo=FALSE, warning=FALSE}
+DT::datatable(projecttab, extensions = "Buttons", selection = 'single', height=20, class='compact', rownames=F, options = list(order = list(0, 'asc'), dom = 'Bftlip', buttons = list(list(
+       extend = 'collection',
+       buttons = c('csv', 'excel', 'pdf'),
+       text = 'Download',
+       title= 'sheep_sig_int'
+     )))) %>% formatRound(columns=c("Expr", "log2Delta", "pvalDelta", "cox_coef", "pvalSurv"), digits=3)
+```
+<br><br>
+
+### Cancer/Normal
+<br>Gene Expression in cancer and healthy samples:
+```{r t2, echo=FALSE, warning=FALSE}
+DT::datatable(table_normal,  extensions = "Buttons", selection = 'single', height=20, class='compact', rownames=F, options = list(order = list(0, 'asc'), dom = 'Bftlip', buttons = list(list(
+       extend = 'collection',
+       buttons = c('csv', 'excel', 'pdf'),
+       text = 'Download',
+       title= 'sheep_sig_int'
+     )))) %>% formatRound(columns=c("ExprNorm","ExprCancer","log2Delta","pval"), digits=3)
+```
+<br><br>
+
+### Primary/Metastasis 
+<br>Gene Expression in primary tumour and metastasis:
+```{r t3, echo=FALSE, warning=FALSE}
+DT::datatable(table_metastasis,  extensions = "Buttons", selection = 'single', height=20, class='compact', rownames=F, options = list(order = list(0, 'asc'), dom = 'Bftlip', buttons = list(list(
+       extend = 'collection',
+       buttons = c('csv', 'excel', 'pdf'),
+       text = 'Download',
+       title= 'sheep_sig_int'
+     )))) %>% formatRound(columns=c("ExprPrim","ExprMetas","log2Delta","pval"), digits=3)
+```
+<br><br>
+
+### Sample Legend
+<br>TCGA code explanation:
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+legend<-read.csv("legend.txt", sep="\t", header=T)
+DT::datatable(legend, class='compact', rownames=F, options = list(order = list(1, 'asc')))
+```
+
+### Data Legend
+<br>Column identifiers in Data Tables:
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+data_legend<-read.csv("data_legend.txt", sep="\t", header=T)
+DT::datatable(data_legend, class='compact', rownames=F, options = list(order = list(0, 'asc')))
+```
+
+
+
+

@@ -1,0 +1,100 @@
+---
+output: html_document
+
+title: RNA Modifiers in Cancer
+author: "Luca Pandolfini"
+date: Kouzarides Lab - 2018
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+enzymes<-read.csv("enzymes.txt", sep="\t", header=T)
+enzymes <-as.data.frame(enzymes)
+enzymes <- mutate(enzymes, Gene_name=paste0("<a target='_blank' href='",ENSEMBL_ID, "/", ENSEMBL_ID,".html'>",Gene_name,"</a>"))
+```
+<br>
+
+## RNA factors {.tabset}
+
+### All
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+these_enzymes<-enzymes
+these_enzymes$Class<-NULL
+DT::datatable(these_enzymes, extensions = "Buttons", escape=FALSE, class='compact', rownames=F, options = list(order = list(0, 'asc'),pageLength = 15, columnDefs = list(list(className = 'dt-left', targets = 0:2)), dom = 'Bftlip', buttons = list(list(
+       extend = 'collection',
+       buttons = c('csv', 'excel', 'pdf'),
+       text = 'Download',
+       title= 'sheep_sig_int'
+     ))))
+```
+
+<br>
+
+### SET/SAM
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+these_enzymes<-subset(enzymes, Class == "SET_SAM")
+these_enzymes$Class<-NULL
+DT::datatable(these_enzymes, extensions = "Buttons", escape=FALSE, class='compact', rownames=F, options = list(order = list(0, 'asc'),pageLength = 15, columnDefs = list(list(className = 'dt-left', targets = 0:2)), dom = 'Bftlip', buttons = list(list(
+       extend = 'collection',
+       buttons = c('csv', 'excel', 'pdf'),
+       text = 'Download',
+       title= 'sheep_sig_int'
+     ))))
+```
+
+<br>
+
+### Pseudouridine
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+these_enzymes<-subset(enzymes, Class == "PSEUDO")
+these_enzymes$Class<-NULL
+DT::datatable(these_enzymes, extensions = "Buttons", escape=FALSE, class='compact', rownames=F, options = list(order = list(0, 'asc'),pageLength = 15, columnDefs = list(list(className = 'dt-left', targets = 0:2)), dom = 'Bftlip', buttons = list(list(
+       extend = 'collection',
+       buttons = c('csv', 'excel', 'pdf'),
+       text = 'Download',
+       title= 'sheep_sig_int'
+     ))))
+```
+<br>
+
+### RNA enzymes
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+these_enzymes<-subset(enzymes, Class == "RNAenzyme")
+these_enzymes$Class<-NULL
+DT::datatable(these_enzymes, extensions = "Buttons", escape=FALSE, class='compact', rownames=F, options = list(order = list(0, 'asc'),pageLength = 15, columnDefs = list(list(className = 'dt-left', targets = 0:2)), dom = 'Bftlip', buttons = list(list(
+       extend = 'collection',
+       buttons = c('csv', 'excel', 'pdf'),
+       text = 'Download',
+       title= 'sheep_sig_int'
+     ))))
+```
+
+<br>
+
+### Hydrolase 4-4
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+these_enzymes<-subset(enzymes, Class == "HY44")
+these_enzymes$Class<-NULL
+DT::datatable(these_enzymes, extensions = "Buttons", escape=FALSE, class='compact', rownames=F, options = list(order = list(0, 'asc'),pageLength = 15, columnDefs = list(list(className = 'dt-left', targets = 0:2)), dom = 'Bftlip', buttons = list(list(
+       extend = 'collection',
+       buttons = c('csv', 'excel', 'pdf'),
+       text = 'Download',
+       title= 'sheep_sig_int'
+     ))))
+```
+
+<br>
+
+### Hydrolase 4-3
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+these_enzymes<-subset(enzymes, Class == "HY34")
+these_enzymes$Class<-NULL
+DT::datatable(these_enzymes,  escape=FALSE, class='compact', rownames=F, options = list(order = list(0, 'asc'),pageLength = 15, columnDefs = list(list(className = 'dt-left', targets = 0:2)), dom = 'Bftlip', buttons = list(list(
+       extend = 'collection',
+       buttons = c('csv', 'excel', 'pdf'),
+       text = 'Download',
+       title= 'sheep_sig_int'
+     ))))
+```
+
+<br>
+
