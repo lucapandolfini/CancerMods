@@ -48,7 +48,7 @@ for (i in exprs_projects){
 		GDCdownload(query1, method = "client")
 	}
 		
-fsystem('echo "Get microRNA query..." >> tcga.log')
+system('echo "Get microRNA query..." >> tcga.log')
 	tryCatch({ 
 	query2 <- GDCquery(project = i,
         data.category = "Transcriptome Profiling",
