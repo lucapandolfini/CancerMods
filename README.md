@@ -104,6 +104,18 @@ Script employing `rmarkdown` to generate all the `.html` pages through rendering
 Generates a searchable index files with all the rendered entries in `enzymes.txt`.
 
 
+### legend.txt
+Tab-delimited file containing a brief explanation of all the acronyms used for describing table values. It is used as an input by `geneTab.Rmd`.
+
+
+### data_legend.txt
+Tab-delimited file containing all the cancer types corresponding to TCGA project codes. It is used as an input by `geneTab.Rmd`.
+
+
+### EXAMPLE.html
+Example of a page generated as an output by `geneTab.Rmd`.
+
+
 ### Pre-generated files (available for download upon request):
 
 md5sum                            |  File
