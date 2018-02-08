@@ -287,7 +287,7 @@ generateAllKMs<-function(gene, percentile, stoptime_analysis=NULL, stoptime_plot
 #foo<-generateAllKMs("ENSG00000165819", 0.25)
 
 plotExprCancer_surv<-function(gene, percentile, title=""){	
-	# adds color to project label if the genes is a associated with better (green) or worse (red) diagnosis
+	# adds color to project label if the genes is a associated with better (green) or worse (red) outcome
 	stats<-generateAllKMs(gene, percentile, make_plot=F, messages=F)
 	all <- extract_all_curated(genes=gene, clinics=c("tumor_stage","days_to_death"))
 	all_oncologic <- subset(all, oncologic)
