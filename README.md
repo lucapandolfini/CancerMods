@@ -112,6 +112,10 @@ Tab-delimited file containing a brief explanation of all the acronyms used for d
 Tab-delimited file containing all the cancer types corresponding to TCGA project codes. It is used as an input by `geneTab.Rmd`.
 
 
+### enzymes.txt
+Tab-delimited file containing a list of all the genes of interest, their ENSEMBL_ID and a brief description. It is used as an input by `geneTab.Rmd` and `index.Rmd`.
+
+
 ### EXAMPLE.html
 Example of a page generated as an output by `geneTab.Rmd`.
 
@@ -120,6 +124,5 @@ Example of a page generated as an output by `geneTab.Rmd`.
 
 md5sum                            |  File
 --------------------------------- | ----------------------------------------
-51d65a22b4f8c5772d97338ec4df8091  |	 enzymes.txt
 d647a96306d6c7ba505b612cc64a41e4	|	 TCGA_curated_dataset.RData
 fd874ed9e5ee959262f595d31bbd62a3	|  TCGA_curated_dataset.mRNAonly.RData
