@@ -105,7 +105,7 @@ extract_all_curated<-function(genes, mirnas=NULL, clinics){
 
 
 #############################################################################################################
-## PLOT GENE EXPRESSION PROFILE ACROSS ALL TUMOR DATA ####################################################### 
+## PLOT GENE EXPRESSION PROFILE ACROSS ALL TUMOR PROJECTS ################################################### 
 #############################################################################################################
 
 plotExprCancer<-function(gene, max=0){	
@@ -255,10 +255,10 @@ microSurvival<-function(project, mirna, percentile, stoptime_analysis=NULL, stop
 #microSurvival("TCGA-BRCA", "hsa-miR-17-3p", 0.25)
 #microSurvival("TCGA-BRCA", "hsa-miR-92b-3p", 0.25, stoptime_analysis=3000)
 
-gene="ENSG00000165819"
-micro="hsa-miR-17-3p"
-percentile=0.25
-proj="TCGA-BRCA"
+#gene="ENSG00000165819"
+#micro="hsa-miR-17-3p"
+#percentile=0.25
+#proj="TCGA-BRCA"
 
 plotPairedBiKM<-function(proj, gene, micro, percentile, stoptime_analysis=NULL, stoptime_plot=NULL){
 	p1<-geneSurvival(proj, gene, percentile, stoptime_analysis, stoptime_plot)
