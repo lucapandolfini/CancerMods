@@ -194,6 +194,8 @@ TARGET_projects <- exprs_projects[grep("TARGET", exprs_projects)]
 
 curated_dataset<-list()
 
+# Process TCGA and TARGET projects separately to take into account the small but critical differences
+
 for(proj in TCGA_projects){
 
 	message(proj)
@@ -252,6 +254,8 @@ for(proj in c("TCGA-LAML",TARGET_projects[c(1,2,4)])){
 }
 
 #save(curated_dataset, file="TCGA_curated_dataset.RData")
+
+# EXEMPLE data accession:
 
 #curated_dataset[["TCGA-OV"]][["mRNA"]][1:5,1:5]
 #curated_dataset[["TCGA-OV"]][["microRNA"]][1:5,1:5]
