@@ -14,12 +14,35 @@ Access the TCGA dataset through TCGAbiolinks package.
 ### TCGAcurated.R
 Functions for data extraction from the curated datasets (_TCGA_curated_dataset.*.RData_)
 
-`extract_curated()`
+`extract_curated(project, genes, mirnas, clinical_data)`\
 Extract data from specific project for genes, miRNA and clinical data
-* _extract_all_curated_: Extract arbitrary data from all the projects available in a single dataframe 
-* _plotExprCancer_: Plot gene expression profile across all tumor projects
-* _plotExprCancerVsNormal_: Plot gene expression profile across paired tumor vs normal samples, when available
 
+`extract_all_curated(genes, mirnas, clinical_data)`\
+Extract arbitrary data from all the projects available in a single dataframe 
+
+`plotExprCancer(gene, max_y_value=NULL)`\
+Plot gene expression profile across all tumor projects
+
+`plotExprCancerVsNormal(gene, max_y_value=NULL)`\
+Plot gene expression profile across all projects for paired tumor vs normal samples, when available
+
+`plotExprCancerVsMetastasis(gene, max_y_value=NULL)`\
+Plot gene expression profile across all projects for paired primary tumor vs metastasis samples, when available
+
+`doKaplanMeier(cfu, label, stoptime_analysis=NULL, stoptime_plot=NULL)`\
+Parse survival data, fit Cox Proportional hazards model and plot results as Kaplan-Meier plot
+
+`geneSurvival(project, gene, percentile, stoptime_analysis=NULL, stoptime_plot=NULL)`\
+Wrapper function for _doKaplanMeier()_ to extract percentiles of gene expression and plotting survival resuls
+
+`microSurvival(project, mirna, percentile, stoptime_analysis=NULL, stoptime_plot=NULL)`\
+Wrapper function for _doKaplanMeier()_ to extract percentiles of miRNA expression and plotting survival resuls
+
+`plotPairedBiKM(project, gene, mirna, percentile, stoptime_analysis=NULL, stoptime_plot=NULL)`\
+Plot survival analysis for a matched gene-miRNA pair in a specific project
+
+`generateAllPairedKMs<-function(gene, micro, percentile, stoptime_analysis=NULL, stoptime_plot=NULL)`\
+Plot survival analysis for a matched gene-miRNA pair in all the projects available
 
 ## Files available for download upon request:
 
