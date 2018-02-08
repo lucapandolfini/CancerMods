@@ -122,7 +122,7 @@ Example of a page generated as an output by `geneTab.Rmd`.
 
 ### Pre-generated files (available for download upon request):
 
-md5sum                            |  File
---------------------------------- | ----------------------------------------
-d647a96306d6c7ba505b612cc64a41e4	|	 TCGA_curated_dataset.RData
-fd874ed9e5ee959262f595d31bbd62a3	|  TCGA_curated_dataset.mRNAonly.RData
+|  File                                    | Size  | md5sum                            |
+| ---------------------------------------- | ----- | --------------------------------- |
+|	 TCGA_curated_dataset.RData              | 2.7GB | d647a96306d6c7ba505b612cc64a41e4	 |
+|  TCGA_curated_dataset.mRNAonly.RData     | 2.8GB | fd874ed9e5ee959262f595d31bbd62a3	 |
