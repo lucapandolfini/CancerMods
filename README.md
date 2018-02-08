@@ -116,7 +116,7 @@ Tab-delimited file containing all the cancer types corresponding to TCGA project
 Tab-delimited file containing a list of all the genes of interest, their ENSEMBL_ID and a brief description. It is used as an input by `geneTab.Rmd` and `index.Rmd`.
 
 
-### Example.html
+### Example.tar.gz
 Example of a page generated as an output by `geneTab.Rmd`.
 
 
