@@ -20,7 +20,7 @@ options(stringsAsFactors = TRUE)
 #curated_mRNA_dataset[["TARGET-AML"]][["Clinical"]][1:5,1:5]
 
 #proj="TCGA-OV"
-#genes="ENSG00000037897"
+#genes="ENSG00000165819"
 #clinics=c("tumor_stage","days_to_death")
 
 #############################################################################################################
@@ -59,7 +59,7 @@ extract_curated <-function(proj, genes, clinics){
 
 }
 
-#head(extract_curated(proj="TCGA-OV", genes="ENSG00000037897", clinics=c("days_to_death","days_to_last_follow_up","vital_status")))
+#head(extract_curated(proj="TCGA-OV", genes="ENSG00000165819", clinics=c("days_to_death","days_to_last_follow_up","vital_status")))
 
 #############################################################################################################
 ## EXTRACT RELEVANT INFORMATION FROM CURATED DATASETS OF ALL CURATED PROJECT ################################ 
@@ -91,9 +91,9 @@ extract_all_curated<-function(genes, clinics){
 
 }
 
-#all <- extract_all_curated(genes=c("ENSG00000037897", "ENSG00000165819", "ENSG00000196363"), clinics=c("tumor_stage","days_to_death"))
+#all <- extract_all_curated(genes=c("ENSG00000165819", "ENSG00000145388"), clinics=c("tumor_stage","days_to_death"))
 
-#ggplot(all, aes(x=`ENSG00000165819`, y=`ENSG00000196363`)) + geom_point(aes(colour = project)) + scale_x_continuous(trans="log2") + scale_y_continuous(trans="log2")
+#ggplot(all, aes(x=`ENSG00000165819`, y=`ENSG00000145388`)) + geom_point(aes(colour = project)) + scale_x_continuous(trans="log2") + scale_y_continuous(trans="log2")
 
 
 #############################################################################################################
@@ -392,7 +392,6 @@ plotExprCancerVsNormal_stats<-function(gene, title){
 }
 
 #plotExprCancerVsNormal_stats("ENSG00000165819", "METTL3")
-#plotExprCancerVsNormal_stats("ENSG00000037897", "METTL1")
 
 plotExprCancerVsMetastasis_stats<-function(gene, title){	
 
@@ -444,5 +443,3 @@ plotExprCancerVsMetastasis_stats<-function(gene, title){
 }
 
 #plotExprCancerVsMetastasis_stats("ENSG00000148584", "METTL3")
-#plotExprCancerVsMetastasis_stats("ENSG00000037897", "METTL1")
-
