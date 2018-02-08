@@ -1,5 +1,3 @@
-#args = commandArgs(trailingOnly=TRUE)
-
 setwd("~/LAB/TCGA/CancerMods/")
 library(rmarkdown);
 source("TCGAcurated.mRNAonly.R")
@@ -19,8 +17,6 @@ generateGenePage<-function(ens_id, gof_id, descr){
 }
 
 #generateGenePage("ENSG00000165819", "METTL3", "Some description of the gene")
-#generateGenePage("ENSG00000037897", "METTL1", "Some description of the gene")
-
 
 enzymes<-read.csv("enzymes.txt", sep="\t", header=T, stringsAsFactors=F)
 
@@ -28,6 +24,8 @@ enzymes<-read.csv("enzymes.txt", sep="\t", header=T, stringsAsFactors=F)
 ##############################################################
 ## Parallel implementation
 ##############################################################
+
+## TODO: resolve sporadic pandoc error due to concurrent instances 
 
 library(foreach)
 library(doParallel)
@@ -52,22 +50,16 @@ stopCluster(cl)
 rmarkdown::render("index.Rmd", output_file="index.html")
 system("rm -rf imd_*")
 
-#ls ENSG00000* | grep .html | wc -l #check status of the make process
-
-#mv ENSG00000* site/
-#tar -cvf site.tar site/
-#pigz -p 15 site.tar
-#scp -r site.tar.gz lp471@cb-head2:/mnt/beegfs/NGS/WebServers/Pipeline/htdocs/data/Luca/
-
-
 ##############################################################
 ## Chunk processing
 ##############################################################
+# (to run multiple single-thread instances of the script) 
 #
-#a=as.numeric(args[1])
-#b=as.numeric(args[2])
+# args = commandArgs(trailingOnly=TRUE)
+# a=as.numeric(args[1])
+# b=as.numeric(args[2])
 #
-#for(i in seq(a,b,1)){
+# for(i in seq(a,b,1)){
 #
 #	ensid_proc <- enzymes[i, "ENSEMBL_ID"]
 #	gene_proc <- enzymes[i, "Gene_name"]
@@ -76,16 +68,15 @@ system("rm -rf imd_*")
 #	if(!file.exists(paste0(ensid_proc, "/", ensid_proc, ".html"))){
 #		generateGenePage(ensid_proc, gene_proc, desc_proc)
 #	}
-#}
+# }
 #
-#rmarkdown::render("index.Rmd", output_file="index.html")
+# rmarkdown::render("index.Rmd", output_file="index.html")
 #
+## EXTERNAL Commands for processing in chunks
+##
 ## Rscript generate_markdown.R 1 35 2>&1 | tee A.log & 
 ## Rscript generate_markdown.R 36 71 2>&1 | tee B.log & 
-## Rscript generate_markdown.R 72 107 2>&1 | tee C.log & 
-## Rscript generate_markdown.R 108 143 2>&1 | tee D.log & 
-## Rscript generate_markdown.R 144 179 2>&1 | tee E.log & 
-## Rscript generate_markdown.R 180 215 2>&1 | tee F.log &
-## Rscript generate_markdown.R 216 251 2>&1 | tee G.log &
-## Rscript generate_markdown.R 252 287 2>&1 | tee H.log &
+## ...
 ## Rscript generate_markdown.R 288 310 2>&1 | tee I.log &
+##
+## ls ENSG00000* | grep .html | wc -l #check status of the make process
