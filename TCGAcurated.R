@@ -21,8 +21,8 @@ options(stringsAsFactors=T)
 #curated_dataset[["TARGET-AML"]][["Clinical"]][1:5,1:5]
 
 #proj="TCGA-OV"
-#genes="ENSG00000037897"
-#mirnas="hsa-let-7e"
+#genes="ENSG00000165819"
+#mirnas="hsa-miR-17-5p"
 #clinics=c("tumor_stage","days_to_death")
 
 #############################################################################################################
@@ -99,9 +99,9 @@ extract_all_curated<-function(genes, mirnas=NULL, clinics){
 
 }
 
-#all <- extract_all_curated(genes=c("ENSG00000037897", "ENSG00000165819", "ENSG00000115816"), mirnas=c("hsa-let-7e-5p","hsa-let-7g-5p"), clinics=c("tumor_stage","days_to_death"))
+#all <- extract_all_curated(genes=c("ENSG00000165819"), mirnas=c("hsa-miR-17-5p","hsa-miR-17-3p"), clinics=c("tumor_stage","days_to_death"))
 
-#ggplot(all, aes(x=`hsa-let-7g-5p`, y=`hsa-let-7e-5p`)) + geom_point(aes(colour = project)) + scale_x_continuous(trans="log2") + scale_y_continuous(trans="log2")
+#ggplot(all, aes(x=`hsa-miR-17-5p`, y=`hsa-miR-17-3p`)) + geom_point(aes(colour = project)) + scale_x_continuous(trans="log2") + scale_y_continuous(trans="log2")
 
 
 #############################################################################################################
