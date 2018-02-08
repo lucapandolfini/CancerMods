@@ -1,8 +1,9 @@
 # CancerMods
 Multiple stats on TCGA data via TCGAbiolinks package
 
-`TCGAbiolinks.R`\
+### TCGAbiolinks.R
 Access the TCGA dataset through TCGAbiolinks package.
+
 * Get mRNA query
 * Get miRNA query
 * Run queries
@@ -10,10 +11,10 @@ Access the TCGA dataset through TCGAbiolinks package.
    * TCGA_curated_dataset.RData (Samples with matched Clinical data, mRNA and miRNA expression)
    * TCGA_curated_dataset.mRNAonly.RData (Samples with matched Clinical data and mRNA expression)
 
-`TCGAcurated.R`\
+### TCGAcurated.R
 Functions for data extraction from the curated datasets (_TCGA_curated_dataset.*.RData_)
 
-* _extract_curated_: 
+`extract_curated()`
 Extract data from specific project for genes, miRNA and clinical data
 * _extract_all_curated_: Extract arbitrary data from all the projects available in a single dataframe 
 * _plotExprCancer_: Plot gene expression profile across all tumor projects
