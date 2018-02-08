@@ -89,7 +89,7 @@ system('echo "Get microRNA query..." >> tcga.log')
 
 ##########################################################################################################################
 
-# Fixing the shit of TCGA misannotation.
+# Fixing the mess of TCGA misannotation.
 # Manual tweak for the "Warning: There are more than one file for the same case"
 # causing GDCprepare to fail for some projects
 
