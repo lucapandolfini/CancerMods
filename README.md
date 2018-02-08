@@ -1,7 +1,6 @@
 # CancerMods
 Multiple stats on TCGA data via TCGAbiolinks package
 
-\
 
 ### TCGAbiolinks.R
 Access the TCGA dataset through TCGAbiolinks package.
@@ -13,7 +12,7 @@ Access the TCGA dataset through TCGAbiolinks package.
    * TCGA_curated_dataset.RData (Samples with matched Clinical data, mRNA and miRNA expression)
    * TCGA_curated_dataset.mRNAonly.RData (Samples with matched Clinical data and mRNA expression)
 
-\
+
 
 ### TCGAcurated.R
 Functions for data extraction from the curated dataset _TCGA_curated_dataset.RData_
@@ -48,7 +47,6 @@ Plot survival analysis for a matched gene-miRNA pair in a specific project
 `generateAllPairedKMs<-function(gene, micro, percentile, stoptime_analysis=NULL, stoptime_plot=NULL)`\
 Plot survival analysis for a matched gene-miRNA pair in all the projects available
 
-\
 
 ### TCGAcurated.mRNAonly.R
 Functions for gene expression data extraction from the curated dataset _TCGA_curated_dataset.mRNAonly.RData_
@@ -92,6 +90,7 @@ Variant of _plotExprCancerVsNormal()_ function that returns statistics about the
 
 `plotExprCancerVsMetastasis_stats`
 Variant of _plotExprCancerVsMetastasis()_ function that returns statistics about the pairwise comparisons between primary tumor vs metastasis samples
+
 
 ## Files available for download upon request:
 
